@@ -14,24 +14,6 @@
 #    include "rgb/rgb.h"
 #endif
 
-enum custom_keycodes {
-    KC_ENC0 = SAFE_RANGE,
-    // Encoders
-    ENC0_CW,
-    ENC0_CC,
-    // These require a dead key, so they are implemented as macros
-    EU_OCIR, // ô
-    EU_NCAR, // ň
-    EU_DCAR, // ď
-    EU_LCAR, // ľ
-    EU_SCAR, // š
-    EU_CCAR, // č
-    EU_TCAR, // ť
-    EU_ZCAR, // ž
-    //
-    KC_HGHL, // No-op, just highlight in RGB
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     [U_GAME] = LAYOUT(
