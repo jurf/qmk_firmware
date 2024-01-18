@@ -10,6 +10,9 @@
 #include "keymap.h"
 #include "keymap_extras/keymap_eurkey.h"
 #include "keymap_extras/sendstring_eurkey.h"
+#ifdef ENCODER_ENABLE
+#    include "features/encoder.h"
+#endif
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb/rgb.h"
 #endif
@@ -132,8 +135,6 @@ void keyboard_post_init_user(void) {
 #endif
 }
 
-bool enc0_mode = false;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if ((keycode == LT(0, KC_C) || keycode == LT(0, KC_G) || keycode == LT(0, KC_V) || keycode == LT(0, KC_D) || keycode == LT(0, KC_B)) && !record->tap.count) {
         if (record->event.pressed) {
@@ -148,24 +149,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
     }
 
+#ifdef ENCODER_ENABLE
+    if (!handle_encoder_keys(keycode, record)) {
+        return false;
+    }
+#endif
+
     switch (keycode) {
-        case KC_ENC0:
-            enc0_mode = !enc0_mode;
-            break;
-        case ENC0_CW:
-            if (!enc0_mode) {
-                tap_code(KC_PGUP);
-            } else {
-                tap_code16(U_RDO);
-            }
-            break;
-        case ENC0_CC:
-            if (!enc0_mode) {
-                tap_code(KC_PGDN);
-            } else {
-                tap_code16(U_UND);
-            }
-            break;
         case EU_DCAR:
             SEND_STRING(SS_EU_DCAR);
             break;
@@ -240,7 +230,7 @@ tap_dance_action_t tap_dance_actions[] = {[U_TD_BOOT] = ACTION_TAP_DANCE_FN(u_td
 #undef MIRYOKU_X
 };
 
-// Encoders
+// Moving this to features/encoder.c causes a compiler error (I guess it wants to be defined after the keymap?)
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     // clang-format off
@@ -248,6 +238,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [U_BASE]   = {ENCODER_CCW_CW(ENC0_CC, ENC0_CW), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
     [U_EXTRA]  = {ENCODER_CCW_CW(ENC0_CC, ENC0_CW), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
     [U_TAP]    = {ENCODER_CCW_CW(ENC0_CC, ENC0_CW), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
+    [U_1HAND]  = {ENCODER_CCW_CW(ENC0_CC, ENC0_CW), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
     [U_BUTTON] = {ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)},
     [U_NAV]    = {ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)},
     [U_MOUSE]  = {ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)},

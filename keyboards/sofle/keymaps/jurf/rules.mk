@@ -1,5 +1,9 @@
 ENCODER_ENABLE = yes
-ENCODER_MAP_ENABLE = yes
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+	ENCODER_MAP_ENABLE = yes
+	SRC += features/encoder.c
+endif
+
 EXTRAKEY_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 LTO_ENABLE = yes
@@ -9,7 +13,7 @@ UNICODE_ENABLE = yes
 
 AUTO_SHIFT_ENABLE = yes
 ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
-	SRC += auto_shift.c
+	SRC += features/auto_shift.c
 endif
 
 RGB_MATRIX_ENABLE = yes

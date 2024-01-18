@@ -12,10 +12,12 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    KC_ENC0 = SAFE_RANGE,
-    // Encoders
+    KC_HGHL = SAFE_RANGE, // No-op, just highlight in RGB
+#ifdef ENCODER_ENABLE
+    KC_ENC0,
     ENC0_CW,
     ENC0_CC,
+#endif
     // These require a dead key, so they are implemented as macros
     EU_OCIR, // ô
     EU_NCAR, // ň
@@ -26,11 +28,7 @@ enum custom_keycodes {
     EU_TCAR, // ť
     EU_ZCAR, // ž
     //
-    KC_HGHL, // No-op, just highlight in RGB
 };
-
-// Left encoder mode
-extern bool enc0_mode;
 
 #define UC_SLQM UC(0x201A) // Single Low-9 Quotation Mark (‚)
 #define UC_LSQM UC(0x2018) // Left Single Quotation Mark (‘)
