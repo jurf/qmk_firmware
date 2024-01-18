@@ -127,15 +127,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
             return 275;
         // Colemak-DH
-        case LGUI_T(KC_A):
-        case LGUI_T(KC_O):
+        case GUI_T(KC_A):
+        case GUI_T(KC_O):
         case LT(U_BUTTON, KC_Z):
         case LT(U_BUTTON, KC_SLSH):
         // Qwerty
-        case LGUI_T(KC_QUOTE):
-        // Tap
-        case LCTL_T(KC_PGDN):
-        case LSFT_T(KC_END):
+        case GUI_T(KC_SCLN):
+        case GUI_T(EU_OCIR):
             return 240;
         default:
             return TAPPING_TERM;
