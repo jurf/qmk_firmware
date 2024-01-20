@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,           KC_F12,            KC_F7,             KC_F8,             KC_F9,             KC_PSCR,                                                 TD(U_TD_U_GAME),   TD(U_TD_U_BASE),   TD(U_TD_U_EXTRA),  TD(U_TD_U_TAP),    TD(U_TD_BOOT),        _______,
         _______,           KC_F11,            KC_F4,             KC_F5,             KC_F6,             KC_SCRL,                                                 U_NA,              KC_LSFT,           KC_LCTL,           KC_LALT,           KC_LGUI,              _______,
         _______,           KC_F10,            KC_F1,             KC_F2,             KC_F3,             KC_PAUS,           _______,           _______,           U_NA,              TD(U_TD_U_FUN),    TD(U_TD_U_MEDIA),  KC_ALGR,           U_NA,                 _______,
-                                              KC_ESC,            KC_APP,            KC_APP,            KC_SPC,            KC_TAB,            U_NA,              U_NA,              KC_HGHL,           U_NP,              U_NP
+                                              KC_APP,            KC_ESC,            KC_ESC,            KC_SPC,            KC_TAB,            U_NA,              U_NA,              KC_HGHL,           U_NP,              U_NP
     ),
     // clang-format on
 };
