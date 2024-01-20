@@ -7,8 +7,12 @@ endif
 EXTRAKEY_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 LTO_ENABLE = yes
-TAP_DANCE_ENABLE = yes
 UNICODE_ENABLE = yes
+
+TAP_DANCE_ENABLE = yes
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
+	SRC += features/tap_dance.c
+endif
 
 CAPS_WORD_ENABLE = yes
 ifeq ($(strip $(CAPS_WORD_ENABLE)), yes)
