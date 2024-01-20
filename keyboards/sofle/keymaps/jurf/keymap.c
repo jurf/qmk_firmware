@@ -9,7 +9,6 @@
 
 #include "keymap.h"
 #include "keymap_extras/keymap_eurkey.h"
-#include "keymap_extras/sendstring_eurkey.h"
 #ifdef ENCODER_ENABLE
 #    include "features/encoder.h"
 #endif
@@ -136,6 +135,7 @@ void keyboard_post_init_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // I have yet to decide which of these keys I want to have space on
     if ((keycode == LT(0, KC_C) || keycode == LT(0, KC_G) || keycode == LT(0, KC_V) || keycode == LT(0, KC_D) || keycode == LT(0, KC_B)) && !record->tap.count) {
         if (record->event.pressed) {
             register_code(KC_SPACE);
@@ -145,8 +145,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    if (!record->event.pressed) {
-        return true;
+    if (!handle_eurkeys(keycode, record)) {
+        return false;
     }
 
 #ifdef ENCODER_ENABLE
@@ -155,57 +155,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
 
-    switch (keycode) {
-        case EU_DCAR:
-            SEND_STRING(SS_EU_DCAR);
-            break;
-        case EU_LCAR:
-            SEND_STRING(SS_EU_LCAR);
-            break;
-        case EU_SCAR:
-            SEND_STRING(SS_EU_SCAR);
-            break;
-        case EU_CCAR:
-            SEND_STRING(SS_EU_CCAR);
-            break;
-        case EU_TCAR:
-            SEND_STRING(SS_EU_TCAR);
-            break;
-        case EU_ZCAR:
-            SEND_STRING(SS_EU_ZCAR);
-            break;
-
-        // Mod-taps do not support 16-bit keys, so we have to manually send the keycode
-        // https://docs.qmk.fm/#/mod_tap?id=changing-tap-function
-        case GUI_T(EU_OCIR):
-            if (!record->tap.count) {
-                return true;
-            }
-            [[fallthrough]];
-        case EU_OCIR:
-            SEND_STRING(SS_EU_OCIR);
-            break;
-
-        case SFT_T(EU_NCAR):
-            if (!record->tap.count) {
-                return true;
-            }
-            [[fallthrough]];
-        case EU_NCAR:
-            SEND_STRING(SS_EU_NCAR);
-            break;
-
-        case SFT_T(EU_OACU):
-            if (record->tap.count) {
-                tap_code16(EU_OACU);
-                break;
-            }
-            return true;
-
-        default:
-            return true;
-    }
-    return false;
+    return true;
 }
 
 // Tap dances

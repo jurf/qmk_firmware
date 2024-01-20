@@ -8,8 +8,12 @@ EXTRAKEY_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 LTO_ENABLE = yes
 TAP_DANCE_ENABLE = yes
-CAPS_WORD_ENABLE = yes
 UNICODE_ENABLE = yes
+
+CAPS_WORD_ENABLE = yes
+ifeq ($(strip $(CAPS_WORD_ENABLE)), yes)
+	SRC += features/caps_word.c
+endif
 
 AUTO_SHIFT_ENABLE = yes
 ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
@@ -27,6 +31,8 @@ OLED_DRIVER = ssd1306
 ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC += oled/oled.c
 endif
+
+SRC += keymap_extras/keymap_eurkey.c
 
 
 # Save space

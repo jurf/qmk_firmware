@@ -10,10 +10,15 @@
 bool enc0_mode = false;
 
 bool handle_encoder_keys(uint16_t keycode, keyrecord_t *record) {
+    if (!record->event.pressed) {
+        return true;
+    }
+
     switch (keycode) {
         case KC_ENC0:
             enc0_mode = !enc0_mode;
             break;
+
         case ENC0_CW:
             if (!enc0_mode) {
                 tap_code(KC_PGUP);
@@ -21,6 +26,7 @@ bool handle_encoder_keys(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(U_RDO);
             }
             break;
+
         case ENC0_CC:
             if (!enc0_mode) {
                 tap_code(KC_PGDN);
@@ -28,8 +34,10 @@ bool handle_encoder_keys(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(U_UND);
             }
             break;
+
         default:
             return true;
     }
+
     return false;
 }

@@ -1,8 +1,4 @@
 // Copyright 2023-2024 Juraj Fiala (@jurf)
-//
-// Based on Miryoku by Manna Harbour
-// https://github.com/manna-harbour/miryoku
-//
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -37,3 +33,5 @@
 
 #define EU_MDOT S(RALT(KC_SCLN)) // Middle Dot (·)
 #define EU_ELLS S(RALT(KC_SLSH)) // Horizontal Ellipsis (…)
+
+bool handle_eurkeys(uint16_t keycode, keyrecord_t *record);

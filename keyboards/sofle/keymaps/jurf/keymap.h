@@ -27,7 +27,6 @@ enum custom_keycodes {
     EU_CCAR, // č
     EU_TCAR, // ť
     EU_ZCAR, // ž
-    //
 };
 
 #define UC_SLQM UC(0x201A) // Single Low-9 Quotation Mark (‚)
