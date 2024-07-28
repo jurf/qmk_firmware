@@ -6,6 +6,7 @@
 // Save space
 // https://docs.qmk.fm/#/squeezing_avr?id=magic-functions
 
+#ifndef MAGIC_ENABLE
 uint16_t keycode_config(uint16_t keycode) {
     return keycode;
 }
@@ -13,3 +14,4 @@ uint16_t keycode_config(uint16_t keycode) {
 uint8_t mod_config(uint8_t mod) {
     return mod;
 }
+#endif
