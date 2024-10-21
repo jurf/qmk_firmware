@@ -15,6 +15,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb/rgb.h"
 #endif
+#include "features/achordion.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
@@ -124,6 +125,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+    return 800;
+}
+
 void keyboard_post_init_user(void) {
     // The gaming layer is the first one, so that it is possible to use the
     // base layer from it for typing
@@ -134,7 +139,63 @@ void keyboard_post_init_user(void) {
 #endif
 }
 
+void matrix_scan_user(void) {
+    achordion_task();
+}
+
+bool achordion_eager_mod(uint8_t mod) {
+    switch (mod) {
+        case MOD_LGUI:
+        case MOD_RGUI:
+            // Do not eagerly apply mods that have an effect on tap
+            return false;
+        default:
+            return true;
+    }
+}
+
+bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode, keyrecord_t *other_record) {
+    int layer = get_highest_layer(default_layer_state);
+    if (layer != U_BASE && layer != U_EXTRA) {
+        // Not a home-row mod layer
+        return true;
+    }
+    if (IS_QK_SWAP_HANDS(tap_hold_keycode)) {
+        // Allow same-hand holds for swap hands
+        return true;
+    }
+
+    if (IS_QK_MOD_TAP(other_keycode) || IS_QK_LAYER_TAP(other_keycode)) {
+        if (QK_MOD_TAP_GET_TAP_KEYCODE(other_keycode) > KC_Z) {
+            // Allow same-hand holds with non-alpha keys.
+            return true;
+        }
+    }
+
+    switch (tap_hold_keycode) {
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            switch (QK_MOD_TAP_GET_TAP_KEYCODE(tap_hold_keycode)) {
+                // If the tap-hold is on a alpha key, do not allow chord
+                case KC_A ... KC_Z:
+                case KC_COMMA ... KC_SLASH:
+                    // Unless it is the button layer
+                    if (QK_LAYER_TAP_GET_LAYER(tap_hold_keycode) == U_BUTTON) {
+                        return true;
+                    }
+                    return achordion_opposite_hands(tap_hold_record, other_record);
+            }
+    }
+
+    return true;
+}
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_achordion(keycode, record)) {
+        return false;
+    }
+
     // I have yet to decide which of these keys I want to have space on
     if ((keycode == LT(0, KC_C) || keycode == LT(0, KC_G) || keycode == LT(0, KC_V) || keycode == LT(0, KC_D) || keycode == LT(0, KC_B)) && !record->tap.count) {
         if (record->event.pressed) {
