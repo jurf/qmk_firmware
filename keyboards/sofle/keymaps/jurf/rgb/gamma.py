@@ -46,3 +46,20 @@ if __name__ == "__main__":
         r, g, b = srgb2lin(r / 255), srgb2lin(g / 255), srgb2lin(b / 255)
         r, g, b = round(r * 255), round(g * 255), round(b * 255)
         print(f"#define RGB_SOLARIZED_{name.upper()} {r}, {g}, {b}")
+
+    print()
+
+    for line in SOLARIZED.split("\n"):
+        if not line:
+            continue
+        values = line.split()
+        name, h, s, v = (
+            values[0],
+            round(int(values[12]) / 360.0 * 0xFF),
+            round(int(values[13]) / 100.0 * 0xFF),
+            round(int(values[14]) / 100.0 * 0xFF),
+        )
+        v = srgb2lin(v / 255.0)
+        v = round(v * 255)
+
+        print(f"#define HSV_SOLARIZED_{name.upper()} {h}, {s}, {v}")

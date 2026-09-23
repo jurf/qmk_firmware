@@ -24,8 +24,22 @@ void u_td_fn_boot(tap_dance_state_t *state, void *user_data) {
 MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
 
-tap_dance_action_t tap_dance_actions[] = {[U_TD_BOOT] = ACTION_TAP_DANCE_FN(u_td_fn_boot),
+void td_fn_backtick_U_BASE(tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            tap_code(KC_GRAVE);
+            break;
+        case 2:
+            default_layer_set((layer_state_t)1 << U_BASE);
+            break;
+    }
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    //
+    [TD_GRV]    = ACTION_TAP_DANCE_FN(td_fn_backtick_U_BASE),
+    [U_TD_BOOT] = ACTION_TAP_DANCE_FN(u_td_fn_boot),
 #define MIRYOKU_X(LAYER, STRING) [U_TD_U_##LAYER] = ACTION_TAP_DANCE_FN(u_td_fn_U_##LAYER),
-                                          MIRYOKU_LAYER_LIST
+    MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
 };

@@ -8,6 +8,8 @@ EXTRAKEY_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 LTO_ENABLE = yes
 UNICODE_ENABLE = yes
+SWAP_HANDS_ENABLE = yes
+DYNAMIC_MACRO_ENABLE = yes
 
 TAP_DANCE_ENABLE = yes
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -36,7 +38,13 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC += oled/oled.c
 endif
 
+KEY_OVERRIDE_ENABLE = no
+ifeq ($(strip $(KEY_OVERRIDE_ENABLE)), yes)
+	SRC += features/key_override.c
+endif
+
 SRC += keymap_extras/keymap_eurkey.c
+SRC += features/achordion.c
 
 
 # Save space

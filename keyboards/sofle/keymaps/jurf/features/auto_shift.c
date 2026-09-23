@@ -9,6 +9,14 @@
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case EU_ACUT:
+        case EU_YACU: // ý
+        case EU_AACU: // á
+        case EU_IACU: // í
+        case EU_EACU: // é
+        case EU_UACU: // ú
+        case EU_OACU: // ó
+        case EU_ADIA: // ä
+        case EU_OCIR ... EU_ZCAR:
             return true;
         default:
             return false;
@@ -19,6 +27,11 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch (keycode) {
         case EU_ACUT:
             register_code16((!shifted) ? EU_ACUT : EU_CARN);
+            break;
+        case EU_OCIR ... EU_ZCAR:
+            if (shifted) {
+                add_weak_mods(MOD_BIT(KC_LSFT));
+            }
             break;
         case KC_DOT:
             if (IS_LAYER_ON(U_NUM)) {
@@ -39,6 +52,11 @@ void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record)
     switch (keycode) {
         case EU_ACUT:
             unregister_code16((!shifted) ? EU_ACUT : EU_CARN);
+            break;
+        case EU_OCIR ... EU_ZCAR:
+            if (shifted) {
+                del_weak_mods(MOD_BIT(KC_LSFT));
+            }
             break;
         case KC_DOT:
             if (IS_LAYER_ON(U_NUM)) {

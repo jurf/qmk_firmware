@@ -8,7 +8,7 @@
 #pragma once
 
 #undef TAPPING_TERM
-#define TAPPING_TERM 160
+#define TAPPING_TERM 175
 
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 #define QUICK_TAP_TERM 0
@@ -40,7 +40,7 @@
 #define TAPPING_TERM_PER_KEY
 #define TAPPING_TOGGLE 2
 
-#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX, UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_WINDOWS
 
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
@@ -64,11 +64,17 @@
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 144 // Higher brightness causes the controller to crash (brownout?)
 #    define RGB_MATRIX_DEFAULT_SPD 172
 
-#    define ENABLE_RGB_MATRIX_ALPHAS_MODS            // Static dual hue, speed is hue for secondary hue
-#    define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN       // Static gradient top to bottom, speed controls how much gradient changes
-#    define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT    // Static gradient left to right, speed controls how much gradient changes
-#    define RGB_MATRIX_BAND_SAT                      // Single hue band fading saturation scrolling left to right
+#    define ENABLE_RGB_MATRIX_ALPHAS_MODS // Static dual hue, speed is hue for secondary hue
+// #    define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN    // Static gradient top to bottom, speed controls how much gradient changes
+// #    define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT // Static gradient left to right, speed controls how much gradient changes
+// #    define ENABLE_RGB_MATRIX_BAND_SAT            // Single hue band fading saturation scrolling left to right
+
 #    define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON // Full gradient Chevron shapped scrolling left to right
+// #    define ENABLE_RGB_MATRIX_FLOWER_BLOOMING
+#    define ENABLE_RGB_MATRIX_HUE_WAVE
+// #    define ENABLE_RGB_MATRIX_STARLIGHT
+// #    define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_HUE
+// #    define ENABLE_RGB_MATRIX_RIVERFLOW
 #endif
 
 // Save space

@@ -5,33 +5,39 @@
 
 #include QMK_KEYBOARD_H
 
-#define EU_YACU RALT(KC_R)    // ý
-#define EU_AACU RALT(KC_X)    // á
-#define EU_IACU RALT(KC_B)    // í
-#define EU_EACU RALT(KC_G)    // é
-#define EU_UACU RALT(KC_J)    // ú
-#define EU_OACU RALT(KC_DOT)  // ó
-#define EU_ADIA RALT(KC_A)    // ä
-#define EU_ACUT RALT(KC_QUOT) // Acute (dead)
-#define EU_CARN S(RALT(KC_6)) // Caron (dead)
+#define EU_ACUT ALGR(KC_QUOT)    // Acute (dead)
+#define EU_CARN S(ALGR(KC_6))    // Caron (dead)
+#define EU_UMLA S(ALGR(KC_QUOT)) // Umlaut (dead)
+#define EU_RING ALGR(KC_7)       // Ring (dead)
 
-#define EU_MULT RALT(KC_EQL) //
-#define EU_DIVN S(RALT(KC_EQL))
+#define EU_YACU ALGR(KC_R)   // ý
+#define EU_AACU ALGR(KC_X)   // á
+#define EU_IACU ALGR(KC_B)   // í
+#define EU_EACU ALGR(KC_G)   // é
+#define EU_UACU ALGR(KC_J)   // ú
+#define EU_OACU ALGR(KC_DOT) // ó
+#define EU_ADIA ALGR(KC_A)   // ä
 
-#define EU_SLQM S(RALT(KC_8)) // Single Low-9 Quotation Mark (‚)
-#define EU_LSQM S(RALT(KC_9)) // Left Single Quotation Mark (‘)
-#define EU_RSQM S(RALT(KC_0)) // Right Single Quotation Mark (’)
+#define EU_MULT ALGR(KC_EQL)    // Multiplication Sign (×)
+#define EU_DIVN S(ALGR(KC_EQL)) // Division Sign (÷)
+
+#define EU_SLQM S(ALGR(KC_8)) // Single Low-9 Quotation Mark (‚)
+#define EU_LSQM S(ALGR(KC_9)) // Left Single Quotation Mark (‘)
+#define EU_RSQM S(ALGR(KC_0)) // Right Single Quotation Mark (’)
 
 #define EU_APPO EU_RSQM // Curly appostrophe (’)
 
-#define EU_DLQM RALT(KC_8) // Double Low-9 Quotation Mark („)
-#define EU_LDQM RALT(KC_9) // Left Double Quotation Mark (“)
-#define EU_RDQM RALT(KC_0) // Right Double Quotation Mark (”)
+#define EU_DLQM ALGR(KC_8) // Double Low-9 Quotation Mark („)
+#define EU_LDQM ALGR(KC_9) // Left Double Quotation Mark (“)
+#define EU_RDQM ALGR(KC_0) // Right Double Quotation Mark (”)
 
-#define EU_ENDS RALT(KC_MINS)    // En Dash (–)
-#define EU_EMDS S(RALT(KC_MINS)) // Em Dash (—)
+#define EU_ENDS ALGR(KC_MINS)    // En Dash (–)
+#define EU_EMDS S(ALGR(KC_MINS)) // Em Dash (—)
 
-#define EU_MDOT S(RALT(KC_SCLN)) // Middle Dot (·)
-#define EU_ELLS S(RALT(KC_SLSH)) // Horizontal Ellipsis (…)
+#define EU_MDOT S(ALGR(KC_SCLN)) // Middle Dot (·)
+#define EU_ELLS S(ALGR(KC_SLSH)) // Horizontal Ellipsis (…)
 
-bool handle_eurkeys(uint16_t keycode, keyrecord_t *record);
+/**
+ * Process keys implemented with EurKEY dead keys.
+ */
+bool process_eurkeys(uint16_t keycode, keyrecord_t *record);

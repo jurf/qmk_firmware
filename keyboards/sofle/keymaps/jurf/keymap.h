@@ -40,24 +40,34 @@ enum custom_keycodes {
 #define UC_ENDS UC(0x2013) // En Dash (–)
 #define UC_EMDS UC(0x2014) // Em Dash (—)
 
+#define UC_MINS UC(0x2212) // Minus (−)
 #define UC_MDOT UC(0x00B7) // Middle Dot (·)
 #define UC_BULL UC(0x2022) // Bullet (•)
 #define UC_ELLS UC(0x2026) // Horizontal Ellipsis (…)
+
+#define UC_LEFT UC(0x2190) // Left Arrow (←)
+#define UC_DOWN UC(0x2193) // Down Arrow (↓)
+#define UC_UP UC(0x2191)   // Up Arrow (↑)
+#define UC_RGHT UC(0x2192) // Right Arrow (→)
 
 #if !defined(MIRYOKU_LAYER_LIST)
 #    define MIRYOKU_LAYER_LIST  \
         MIRYOKU_X(GAME, 0x90)   \
         MIRYOKU_X(BASE, 0x94)   \
         MIRYOKU_X(EXTRA, 0x98)  \
-        MIRYOKU_X(TAP, 0x94)    \
-        MIRYOKU_X(1HAND, 0x9c)  \
+        MIRYOKU_X(TAP_BS, 0x94) \
+        MIRYOKU_X(TAP_XT, 0x94) \
+        MIRYOKU_X(VANILL, 0x94) \
+        MIRYOKU_X(MACRO, 0x9c)  \
         MIRYOKU_X(BUTTON, 0xa0) \
         MIRYOKU_X(NAV, 0xa4)    \
         MIRYOKU_X(MOUSE, 0x30)  \
         MIRYOKU_X(MEDIA, 0x34)  \
         MIRYOKU_X(NUM, 0x38)    \
         MIRYOKU_X(SYM, 0x3c)    \
-        MIRYOKU_X(FUN, 0x40)
+        MIRYOKU_X(FUN, 0x40)    \
+        MIRYOKU_X(UNIC_R, 0x94) \
+        MIRYOKU_X(UNIC_L, 0x94)
 #endif
 
 enum miryoku_layers {
@@ -67,6 +77,7 @@ enum miryoku_layers {
 };
 
 enum {
+    TD_GRV,
     U_TD_BOOT,
 #define MIRYOKU_X(LAYER, STRING) U_TD_U_##LAYER,
     MIRYOKU_LAYER_LIST
@@ -83,4 +94,17 @@ enum {
 #define U_CUT C(KC_X)
 #define U_UND C(KC_Z)
 
+#define LM_LSFT LM(U_VANILL, MOD_LSFT)
+#define LM_LCTL LM(U_VANILL, MOD_LCTL)
+#define LM_LALT LM(U_VANILL, MOD_LALT)
+#define LM_LGUI LM(U_VANILL, MOD_LGUI)
+
+#define LM_RSFT LM(U_VANILL, MOD_RSFT)
+#define LM_RCTL LM(U_VANILL, MOD_RCTL)
+#define LM_RALT LM(U_VANILL, MOD_RALT)
+#define LM_RGUI LM(U_VANILL, MOD_RGUI)
+
+/**
+ * Is the current layer one of the base layers (excluding the gaming layout)?
+ */
 bool is_base_layer(const uint8_t layer);
