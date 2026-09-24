@@ -15,7 +15,6 @@
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb/rgb.h"
 #endif
-#include "features/achordion.h"
 #ifdef TAP_DANCE_ENABLE
 #    include "features/tap_dance.inc"
 #endif
@@ -158,10 +157,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-    return 800;
-}
-
 void keyboard_post_init_user(void) {
     // The gaming layer is the first one, so that it is possible to use the
     // base layer from it for typing
@@ -172,22 +167,13 @@ void keyboard_post_init_user(void) {
 #endif
 }
 
-void matrix_scan_user(void) {
-    achordion_task();
+bool get_speculative_hold(uint16_t keycode, keyrecord_t * /* record */) {
+    const uint8_t mods = mod_config(QK_MOD_TAP_GET_MODS(keycode));
+    // Do not eagerly apply mods that have an effect on tap
+    return (mods & (MOD_LGUI | MOD_RGUI)) == 0;
 }
 
-bool achordion_eager_mod(uint8_t mod) {
-    switch (mod) {
-        case MOD_LGUI:
-        case MOD_RGUI:
-            // Do not eagerly apply mods that have an effect on tap
-            return false;
-        default:
-            return true;
-    }
-}
-
-bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode, keyrecord_t *other_record) {
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode, keyrecord_t *other_record) {
     int layer = get_highest_layer(default_layer_state);
     if (layer != U_BASE && layer != U_EXTRA) {
         // Not a home-row mod layer
@@ -213,10 +199,10 @@ bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, ui
                 case KC_A ... KC_Z:
                 case KC_COMMA ... KC_SLASH:
                     // Unless it is the button layer
-                    if (QK_LAYER_TAP_GET_LAYER(tap_hold_keycode) == U_BUTTON) {
+                    if (IS_QK_LAYER_TAP(tap_hold_keycode) && QK_LAYER_TAP_GET_LAYER(tap_hold_keycode) == U_BUTTON) {
                         return true;
                     }
-                    return achordion_opposite_hands(tap_hold_record, other_record);
+                    return get_chordal_hold_default(tap_hold_record, other_record);
             }
     }
 
@@ -285,10 +271,6 @@ void process_rgb_keys(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_achordion(keycode, record)) {
-        return false;
-    }
-
     if (!process_qwerty_mods(keycode, record)) {
         return false;
     }

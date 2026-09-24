@@ -14,6 +14,8 @@
 #define QUICK_TAP_TERM 0
 // Do not wait for tapping term if chord is well-formed
 #define PERMISSIVE_HOLD
+#define CHORDAL_HOLD
+#define SPECULATIVE_HOLD
 
 // Auto Shift
 #define NO_AUTO_SHIFT_ALPHA // Cannot be used due to homerow mods

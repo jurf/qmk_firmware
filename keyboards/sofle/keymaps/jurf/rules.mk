@@ -41,7 +41,6 @@ ifeq ($(strip $(KEY_OVERRIDE_ENABLE)), yes)
 endif
 
 SRC += keymap_extras/keymap_eurkey.c
-SRC += features/achordion.c
 
 
 # Save space
