@@ -16,6 +16,9 @@
 #    include "rgb/rgb.h"
 #endif
 #include "features/achordion.h"
+#ifdef TAP_DANCE_ENABLE
+#    include "features/tap_dance.inc"
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
@@ -80,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,           U_UND,             U_CUT,             U_CPY,             U_PST,             U_RDO,                                                   U_RDO,             U_PST,             U_CPY,             U_CUT,             U_UND,                _______,
         _______,           KC_LGUI,           KC_LALT,           KC_LCTL,           KC_LSFT,           U_NU,                                                    U_NU,              KC_LSFT,           KC_LCTL,           KC_LALT,           KC_LGUI,              _______,
         _______,           U_UND,             U_CUT,             U_CPY,             U_PST,             U_RDO,             _______,           _______,           U_RDO,             U_PST,             U_CPY,             U_CUT,             U_UND,                _______,
-                                              U_NP,              U_NP,              KC_BTN3,           KC_BTN1,           KC_BTN2,           KC_BTN2,           KC_BTN1,           KC_BTN3,           U_NP,              U_NP
+                                              U_NP,              U_NP,              MS_BTN3,           MS_BTN1,           MS_BTN2,           MS_BTN2,           MS_BTN1,           MS_BTN3,           U_NP,              U_NP
     ),
     [U_NAV] = LAYOUT(
         _______,           _______,           _______,           _______,           _______,           _______,                                                 KC_CAPS,           _______,           _______,           _______,           _______,              _______,
@@ -92,13 +95,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [U_MOUSE] = LAYOUT(
         _______,           _______,           _______,           _______,           _______,           _______,                                                 _______,           _______,           _______,           _______,           _______,              _______,
         _______,           TD(U_TD_BOOT),     TD(U_TD_U_TAP_BS), TD(U_TD_U_EXTRA),  TD(U_TD_U_BASE),   TD(U_TD_U_GAME),                                         U_RDO,             U_PST,             U_CPY,             U_CUT,             U_UND,                KC_TAB,
-        _______,           KC_LGUI,           KC_LALT,           KC_LCTL,           KC_LSFT,           U_NA,                                                    KC_WWW_FORWARD,    KC_MS_L,           KC_MS_D,           KC_MS_U,           KC_MS_R,              LCTL_T(KC_SPC),
-        _______,           U_NA,              KC_ALGR,           TD(U_TD_U_SYM),    TD(U_TD_U_MOUSE),  U_NA,              _______,           _______,           KC_WWW_BACK,       KC_WH_L,           KC_WH_D,           KC_WH_U,           KC_WH_R,              LSFT_T(KC_ESC),
-                                              U_NP,              U_NP,              U_NA,              U_NA,              KC_HGHL,           KC_BTN2,           KC_BTN1,           KC_BTN3,           KC_LALT,           KC_LGUI
+        _______,           KC_LGUI,           KC_LALT,           KC_LCTL,           KC_LSFT,           U_NA,                                                    KC_WWW_FORWARD,    MS_LEFT,           MS_DOWN,           MS_UP,             MS_RGHT,              LCTL_T(KC_SPC),
+        _______,           U_NA,              KC_ALGR,           TD(U_TD_U_SYM),    TD(U_TD_U_MOUSE),  U_NA,              _______,           _______,           KC_WWW_BACK,       MS_WHLL,           MS_WHLD,           MS_WHLU,           MS_WHLR,              LSFT_T(KC_ESC),
+                           U_NP,              U_NP,              U_NA,              U_NA,              KC_HGHL,           MS_BTN2,           MS_BTN1,           MS_BTN3,           KC_LALT,           KC_LGUI
     ),
     [U_MEDIA] = LAYOUT(
         _______,           _______,           _______,           _______,           _______,           _______,                                                 _______,           UC_LINX,           UC_WINC,           UC_WIN,            _______,              _______,
-        _______,           TD(U_TD_BOOT),     TD(U_TD_U_TAP_BS), TD(U_TD_U_EXTRA),  TD(U_TD_U_BASE),   TD(U_TD_U_GAME),                                         RGB_TOG,           RGB_MOD,           RGB_HUI,           RGB_SAI,           RGB_VAI,              RGB_SPI,
+        _______,           TD(U_TD_BOOT),     TD(U_TD_U_TAP_BS), TD(U_TD_U_EXTRA),  TD(U_TD_U_BASE),   TD(U_TD_U_GAME),                                         RM_TOGG,           RM_NEXT,           RM_HUEU,           RM_SATU,           RM_VALU,              RM_SPDU,
         _______,           KC_LGUI,           KC_LALT,           KC_LCTL,           KC_LSFT,           U_NA,                                                    U_NU,              KC_MPRV,           KC_VOLD,           KC_VOLU,           KC_MNXT,              _______,
         _______,           U_NA,              KC_ALGR,           TD(U_TD_U_FUN),    TD(U_TD_U_MEDIA),  U_NA,              _______,           _______,           DM_RSTP,           DM_PLY1,           DM_PLY2,           DM_REC1,           DM_REC2,                 _______,
                                               U_NP,              U_NP,              KC_HGHL,           U_NA,              U_NA,              KC_MSTP,           KC_MPLY,           KC_MUTE,           U_NP,              U_NP

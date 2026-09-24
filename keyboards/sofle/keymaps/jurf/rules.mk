@@ -12,9 +12,6 @@ SWAP_HANDS_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = yes
 
 TAP_DANCE_ENABLE = yes
-ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-	SRC += features/tap_dance.c
-endif
 
 CAPS_WORD_ENABLE = yes
 ifeq ($(strip $(CAPS_WORD_ENABLE)), yes)

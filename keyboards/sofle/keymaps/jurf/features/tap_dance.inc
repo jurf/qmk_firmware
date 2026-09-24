@@ -5,10 +5,6 @@
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
-
-#include "../keymap.h"
-
 void u_td_fn_boot(tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         reset_keyboard();
@@ -36,7 +32,6 @@ void td_fn_backtick_U_BASE(tap_dance_state_t *state, void *user_data) {
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-    //
     [TD_GRV]    = ACTION_TAP_DANCE_FN(td_fn_backtick_U_BASE),
     [U_TD_BOOT] = ACTION_TAP_DANCE_FN(u_td_fn_boot),
 #define MIRYOKU_X(LAYER, STRING) [U_TD_U_##LAYER] = ACTION_TAP_DANCE_FN(u_td_fn_U_##LAYER),
