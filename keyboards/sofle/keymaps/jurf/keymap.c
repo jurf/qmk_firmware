@@ -261,7 +261,8 @@ bool process_qwerty_mods(uint16_t keycode, keyrecord_t *record) {
     return false;
 }
 
-void process_rgb_keys(uint16_t keycode, keyrecord_t *record) {
+#ifdef RGB_MATRIX_ENABLE
+static void process_rgb_keys(uint16_t keycode, keyrecord_t *record) {
     static uint16_t key_timer = 0;
     if (IS_RGB_KEYCODE(keycode)) {
         key_timer = timer_read();
@@ -269,13 +270,16 @@ void process_rgb_keys(uint16_t keycode, keyrecord_t *record) {
 
     disable_layer_rgb = timer_elapsed(key_timer) < 5000;
 }
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_qwerty_mods(keycode, record)) {
         return false;
     }
 
+#ifdef RGB_MATRIX_ENABLE
     process_rgb_keys(keycode, record);
+#endif
 
     // I have yet to decide which of these keys I want to have space on
     if ((keycode == LT(0, KC_C) || keycode == LT(0, KC_G) || keycode == LT(0, KC_V) || keycode == LT(0, KC_D) || keycode == LT(0, KC_B)) && !record->tap.count) {
