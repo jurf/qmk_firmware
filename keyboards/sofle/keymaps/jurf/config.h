@@ -62,7 +62,7 @@
 #    define RGB_MATRIX_LED_COUNT 72
 #    define RGB_MATRIX_SPLIT \
         { 36, 36 }
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_SLEEP
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 144 // Higher brightness causes the controller to crash (brownout?)
 #    define RGB_MATRIX_DEFAULT_SPD 172
 
